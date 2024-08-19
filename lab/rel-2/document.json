@@ -1,0 +1,19 @@
+{
+  "_id": {
+    "$oid": "66c37f3041e84b9e1063adf2"
+  },
+  "aula": {
+    "disciplina": "Programação Orientada a Objetos",
+    "professor": {
+      "nome": "Lucas"
+    },
+    "alunos": [
+      {
+        "nome": "Maria"
+      },
+      {
+        "nome": "Pedro"
+      }
+    ]
+  }
+}
