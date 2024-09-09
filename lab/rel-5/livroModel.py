@@ -1,5 +1,5 @@
-from pymongo import MongoClient
 from bson.objectid import ObjectId
+from database import Database
 from functools import wraps
 
 
@@ -9,12 +9,14 @@ def tryCatchAbstract(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            return str(e)
+            print(f"An error occurred: {e}")
+            return None
+    return wrapper
 
 
 class LivroModel:
-    def __init__(self):
-        self.database
+    def __init__(self, database: Database):
+        self.collection = database.collection
 
     @tryCatchAbstract
     def create_livro(self, titulo: str, autor: str, ano: int, preco: float):
@@ -24,14 +26,15 @@ class LivroModel:
             "ano": ano,
             "preco": preco
         }
-        result = self.database.insert_one(livro)
+        result = self.collection.insert_one(livro)
         return result.inserted_id
 
     @tryCatchAbstract
     def read_livro(self, id: str):
-        livro = self.database.find_one({"_id": ObjectId(id)})
+        livro = self.collection.find_one({"_id": ObjectId(id)})
         return livro
 
+    @tryCatchAbstract
     def update_livro(self, id: str, titulo: str, autor: str, ano: int, preco: float):
         livro = {
             "titulo": titulo,
@@ -39,10 +42,11 @@ class LivroModel:
             "ano": ano,
             "preco": preco
         }
-        result = self.database.update_one(
+        result = self.collection.update_one(
             {"_id": ObjectId(id)}, {"$set": livro})
         return result.modified_count
 
+    @tryCatchAbstract
     def delete_livro(self, id: str):
-        result = self.database.delete_one({"_id": ObjectId(id)})
+        result = self.collection.delete_one({"_id": ObjectId(id)})
         return result.deleted_count
