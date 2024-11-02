@@ -98,3 +98,5 @@ Abaixo estão os passos e os resultados esperados para cada questão abordada no
     - Resultado: `'Updated Teacher Chris Lima'`
     - Consulta o professor "Chris Lima".
     - Resultado: `<Record t.ano_nasc=1956 t.cpf='162.052.777-77'>`
+
+![alt text](image-2.png)
